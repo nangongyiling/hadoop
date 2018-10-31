@@ -15,6 +15,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.hadoop.hbase.HbaseTemplate;
 import org.springframework.data.hadoop.hbase.RowMapper;
 
+/**
+ * 需要把hbase的集群hosts添加到本地
+ * @author guitai
+ *
+ */
 public class HBase {
 
 	private static ApplicationContext ctx;
@@ -28,9 +33,9 @@ public class HBase {
 	
 	private static void hbaseScan(HbaseTemplate template) {
 		Scan scan = new Scan();
-		scan.addFamily(Bytes.toBytes("cf1"));
-		scan.addFamily(Bytes.toBytes("cf2"));
-		List<Map<String,String>> list = template.find("hbase_01", scan, new RowMapper<Map<String,String>>() {
+		scan.addFamily(Bytes.toBytes("num1"));
+		scan.addFamily(Bytes.toBytes("num2"));
+		List<Map<String,String>> list = template.find("tab6", scan, new RowMapper<Map<String,String>>() {
 
 			@Override
 			public Map<String, String> mapRow(Result result, int rowNum) throws Exception {
@@ -58,13 +63,13 @@ public class HBase {
 				Entry<String,String> entry = iter.next();
 				StringBuffer sb = new StringBuffer();
 				sb.append(entry.getKey()+"=").append(entry.getValue()+",");
-				System.out.println(sb.toString());
+				System.out.println("==================="+sb.toString());
 			}
 		}
 	}
 	
 	private static void hbaseGet(HbaseTemplate template) {
-		List<String> rows = template.find("hbase_01", "cf1", new RowMapper<String>() {
+		List<String> rows = template.find("tab6", "num1", new RowMapper<String>() {
 
 			@Override
 			public String mapRow(Result result, int rowNum) throws Exception {
@@ -73,7 +78,7 @@ public class HBase {
 			
 		});
 		for(String s:rows) {
-			System.out.println(s);
+			System.out.println("==================="+s);
 		}
 	}
 }

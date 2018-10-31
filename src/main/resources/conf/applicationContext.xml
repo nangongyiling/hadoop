@@ -13,7 +13,7 @@
 	<hbase-configuration zk-quorum="${zookeeper.host}" zk-port="${zookeeper.port}"
 		configuration-ref="hadoopConfiguration" delete-connection="true"></hbase-configuration>
 
-	<bean id="hbaseTemplate" class="org.springframework.data.hadoop.hbase.HbaseTemplate">
-		<property name="configuration" ref="hbaseConfiguration"/>
-	</bean>
+	<beans:bean id="hbaseTemplate" class="org.springframework.data.hadoop.hbase.HbaseTemplate">
+		<beans:property name="configuration" ref="hbaseConfiguration"/>
+	</beans:bean>
 </beans:beans>
